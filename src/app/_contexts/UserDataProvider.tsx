@@ -9,6 +9,10 @@ export const NDC_NUMBER = "ndcNumber";
 export const PRODUCT_PHOTOS = "productPhotos";
 export const PRODUCT_NAME = "productName";
 export const WHAT_HAPPENED = "whatHappened";
+export const WHAT_HAPPENED_OUTCOME = "whatHappenedOutcome";
+export const WHAT_HAPPENED_DIAGNOSIS = "whatHappenedDiagnosis";
+export const PREVIOUSLY_REPORTED_TO_MANUFACTURER =
+  "previouslyReportedToManufacturer";
 export const EVENT_DATE = "eventDate";
 export const EVENT_DATE_PRECISION = "eventDatePrecision";
 export const HARMED_AGE = "harmedAge";
@@ -20,6 +24,7 @@ export const CONTACT_PERMISSION = "contactPermission";
 export const CONTACT_FIRST_NAME = "contactFirstName";
 export const CONTACT_LAST_NAME = "contactLastName";
 export const CONTACT_EMAIL = "contactEmail";
+export const CONTACT_PHONE = "contactPhone";
 export const ADDITIONAL_FILES = "additionalFiles";
 
 export interface UserData {
@@ -45,6 +50,9 @@ export default function UserDataProvider({
     NDC_NUMBER: "",
     PRODUCT_NAME: "",
     WHAT_HAPPENED: "",
+    WHAT_HAPPENED_OUTCOME: [],
+    WHAT_HAPPENED_DIAGNOSIS: "",
+    PREVIOUSLY_REPORTED_TO_MANUFACTURER: "",
     EVENT_DATE: "",
     HARMED_AGE: "",
     HARMED_AGE_UNIT: "years",
@@ -55,6 +63,7 @@ export default function UserDataProvider({
     CONTACT_FIRST_NAME: "",
     CONTACT_LAST_NAME: "",
     CONTACT_EMAIL: "",
+    CONTACT_PHONE: "",
     ADDITIONAL_FILES: "",
   });
 

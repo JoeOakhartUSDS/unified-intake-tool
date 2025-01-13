@@ -1,10 +1,9 @@
 "use client";
 
 import { useUserDataContext } from "@/_contexts/UserDataProvider";
-import NavigateBack from "@/_components/NavigateBack";
-import NavigateNext from "@/_components/NavigateNext";
 import { ReviewScreenMetadata } from "./metadata";
 import { screenOrder } from "@/_utils/Navigation";
+import ScreenWithNavigation from "@/_components/ScreenWithNavigation";
 
 export default function ReviewScreen() {
   const screenName = ReviewScreenMetadata.name;
@@ -15,8 +14,11 @@ export default function ReviewScreen() {
   );
 
   return (
-    <>
-      <NavigateBack userData={userData} screenName={screenName} />
+    <ScreenWithNavigation
+      userData={userData}
+      screenName={screenName}
+      buttonText="Submit"
+    >
       <h1 className="font-ui-lg text-bold">Review your submission</h1>
       <div className="margin-bottom-2">
         Review your information below to make sure it is correct. After you
@@ -30,11 +32,6 @@ export default function ReviewScreen() {
           return <></>;
         }
       })}
-      <NavigateNext
-        userData={userData}
-        screenName={screenName}
-        buttonText="Submit"
-      />
-    </>
+    </ScreenWithNavigation>
   );
 }

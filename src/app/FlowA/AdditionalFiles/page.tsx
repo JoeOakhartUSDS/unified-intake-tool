@@ -5,9 +5,8 @@ import {
   ADDITIONAL_FILES,
   useUserDataContext,
 } from "@/_contexts/UserDataProvider";
-import NavigateBack from "@/_components/NavigateBack";
-import NavigateNext from "@/_components/NavigateNext";
 import { AdditionalFilesMetadata } from "./metadata";
+import ScreenWithNavigation from "@/_components/ScreenWithNavigation";
 
 export default function AdditionalFiles() {
   const screenName = AdditionalFilesMetadata.name;
@@ -18,8 +17,7 @@ export default function AdditionalFiles() {
   };
 
   return (
-    <>
-      <NavigateBack userData={userData} screenName={screenName} />
+    <ScreenWithNavigation userData={userData} screenName={screenName}>
       <FormGroup>
         <Label htmlFor="additionalFileInput">
           Upload any additional information (optional)
@@ -35,7 +33,6 @@ export default function AdditionalFiles() {
           multiple
         />
       </FormGroup>
-      <NavigateNext userData={userData} screenName={screenName} />
-    </>
+    </ScreenWithNavigation>
   );
 }

@@ -9,10 +9,9 @@ import {
 import { NDC_NUMBER, useUserDataContext } from "@/_contexts/UserDataProvider";
 import { useState } from "react";
 import { z } from "zod";
-import NavigateBack from "@/_components/NavigateBack";
-import NavigateNext from "@/_components/NavigateNext";
 import NavigateSkip from "@/_components/NavigateSkip";
 import { NDCNumberMetadata } from "./metadata";
+import ScreenWithNavigation from "@/_components/ScreenWithNavigation";
 
 export default function NDCNumber() {
   const screenName = NDCNumberMetadata.name;
@@ -46,8 +45,11 @@ export default function NDCNumber() {
   };
 
   return (
-    <>
-      <NavigateBack userData={userData} screenName={screenName} />
+    <ScreenWithNavigation
+      userData={userData}
+      screenName={screenName}
+      validate={validate}
+    >
       <FormGroup className="margin-bottom-3" error={validated && !isValid()}>
         <Label htmlFor="ndcNumber" title="National Drug Code">
           NDC number (optional)
@@ -76,11 +78,6 @@ export default function NDCNumber() {
         screenName={screenName}
         validate={validate}
       />
-      <NavigateNext
-        userData={userData}
-        screenName={screenName}
-        validate={validate}
-      />
-    </>
+    </ScreenWithNavigation>
   );
 }

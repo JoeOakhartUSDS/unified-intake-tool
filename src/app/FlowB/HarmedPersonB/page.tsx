@@ -22,10 +22,9 @@ import {
 } from "@/_contexts/UserDataProvider";
 import { useState } from "react";
 import { z } from "zod";
-import NavigateBackB from "@/_components/NavigateBackB";
-import NavigateNext from "@/_components/NavigateNext";
 import NavigateSkip from "@/_components/NavigateSkip";
 import { HarmedPersonBMetadata } from "./metadata";
+import ScreenWithNavigation from "@/_components/ScreenWithNavigation";
 
 export default function HarmedPersonB() {
   const screenName = HarmedPersonBMetadata.name;
@@ -93,7 +92,12 @@ export default function HarmedPersonB() {
   };
 
   return (
-    <>
+    <ScreenWithNavigation
+      userData={userData}
+      screenName={screenName}
+      validate={validate}
+      isBottomBack={true}
+    >
       <StepIndicator
         headingLevel="h1"
         ofText="of"
@@ -215,7 +219,8 @@ export default function HarmedPersonB() {
           Provide their medical details (optional)
           <br />
           <span className="usa-hint">
-            List any prescriptions taken at the same time or allergies
+            List any products taken at the same time including over-the-counter
+            medications, supplements, and any allergies.
           </span>
         </Label>
         <CharacterCount
@@ -224,16 +229,9 @@ export default function HarmedPersonB() {
           isTextArea={true}
           value={userData[HARMED_MEDICAL]}
           onChange={handleMedicalChange}
-          maxLength={8000}
+          maxLength={4000}
         />
       </FormGroup>
-
-      <NavigateNext
-        userData={userData}
-        screenName={screenName}
-        validate={validate}
-      />
-      <NavigateBackB userData={userData} screenName={screenName} />
-    </>
+    </ScreenWithNavigation>
   );
 }

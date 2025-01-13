@@ -5,9 +5,8 @@ import {
   PRODUCT_PHOTOS,
   useUserDataContext,
 } from "@/_contexts/UserDataProvider";
-import NavigateBack from "@/_components/NavigateBack";
-import NavigateNext from "@/_components/NavigateNext";
 import { ProductPhotosMetadata } from "./metadata";
+import ScreenWithNavigation from "@/_components/ScreenWithNavigation";
 
 export default function ProductPhotos() {
   const screenName = ProductPhotosMetadata.name;
@@ -18,8 +17,7 @@ export default function ProductPhotos() {
   };
 
   return (
-    <>
-      <NavigateBack userData={userData} screenName={screenName} />
+    <ScreenWithNavigation userData={userData} screenName={screenName}>
       <FormGroup>
         <Label htmlFor="productPhotosFileInput">
           Upload product photos (optional)
@@ -40,7 +38,6 @@ export default function ProductPhotos() {
           multiple
         />
       </FormGroup>
-      <NavigateNext userData={userData} screenName={screenName} />
-    </>
+    </ScreenWithNavigation>
   );
 }

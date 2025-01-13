@@ -13,6 +13,9 @@ import {
   TextInput,
   TextInputMask,
   CharacterCount,
+  Fieldset,
+  Checkbox,
+  Radio,
 } from "@trussworks/react-uswds";
 import {
   PRODUCT_PHOTOS,
@@ -25,12 +28,14 @@ import {
   PRODUCT_TYPE,
   SUBMISSION_TYPE,
   useUserDataContext,
+  WHAT_HAPPENED_OUTCOME,
+  WHAT_HAPPENED_DIAGNOSIS,
+  PREVIOUSLY_REPORTED_TO_MANUFACTURER,
 } from "@/_contexts/UserDataProvider";
 import { useEffect, useState } from "react";
-import NavigateBackB from "@/_components/NavigateBackB";
-import NavigateNext from "@/_components/NavigateNext";
 import { WhatHappenedBMetadata } from "./metadata";
 import { z } from "zod";
+import ScreenWithNavigation from "@/_components/ScreenWithNavigation";
 
 export default function WhatHappenedB() {
   const screenName = WhatHappenedBMetadata.name;
@@ -67,10 +72,22 @@ export default function WhatHappenedB() {
     updateUserData(WHAT_HAPPENED, event.target.value);
   };
 
+  const handleWhatHappenedDiagnosisChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    updateUserData(WHAT_HAPPENED, event.target.value);
+  };
+
   const handleAdditionalFileChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     updateUserData(ADDITIONAL_FILES, event.target.value);
+  };
+
+  const handlePreviouslyReportedChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    updateUserData(PREVIOUSLY_REPORTED_TO_MANUFACTURER, event.target.value);
   };
 
   const validate = (event: React.ChangeEvent) => {
@@ -131,7 +148,7 @@ export default function WhatHappenedB() {
         default:
       }
     }
-  });
+  }, [userData]);
 
   const handleMonthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMonth(event.target.value);
@@ -144,6 +161,26 @@ export default function WhatHappenedB() {
   const handleYearChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setYear(event.target.value);
     updateUserData(EVENT_DATE, formatDate(day, month, event.target.value));
+  };
+
+  const handleWhatHappenedOutcomeChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    if (typeof userData[WHAT_HAPPENED_OUTCOME] === "object") {
+      const previous = userData[WHAT_HAPPENED_OUTCOME];
+      const indexOfValue = previous.indexOf(event.target.value);
+      if (indexOfValue >= 0) {
+        previous.splice(indexOfValue, 1);
+        updateUserData(WHAT_HAPPENED_OUTCOME, previous);
+      } else {
+        updateUserData(WHAT_HAPPENED_OUTCOME, [
+          ...previous,
+          event.target.value,
+        ]);
+      }
+    } else {
+      updateUserData(WHAT_HAPPENED_OUTCOME, [event.target.value]);
+    }
   };
 
   const formatDate = (day: string, month: string, year: string) => {
@@ -202,7 +239,12 @@ export default function WhatHappenedB() {
   };
 
   return (
-    <>
+    <ScreenWithNavigation
+      userData={userData}
+      screenName={screenName}
+      validate={validate}
+      isBottomBack={true}
+    >
       <StepIndicator
         headingLevel="h1"
         ofText="of"
@@ -219,11 +261,8 @@ export default function WhatHappenedB() {
         <Label htmlFor="productPhotosFileInput">
           Upload product photos (optional)
           <div id="product-photos-hint" className="usa-hint">
-            Include a photo of anywhere there is text on the package, product,
-            and instructions.
-            <br />
-            <br />
-            Include photos of anything wrong with the product.
+            Include a photo of the product and any text on the package,
+            including the barcode, lot number, and expiration dates.
           </div>
         </Label>
         <FileInput
@@ -298,7 +337,7 @@ export default function WhatHappenedB() {
         error={validated && !isDescriptionValid()}
       >
         <Label htmlFor="whatHappened">
-          Describe what happened in detail
+          Describe what happened, step by step, and the timing
           <abbr
             title="required"
             className="usa-hint usa-hint--required text-no-underline"
@@ -306,15 +345,10 @@ export default function WhatHappenedB() {
             *
           </abbr>
           <br />
-          <span className="usa-hint">What happened, step by step?</span>
-          <div className="usa-hint" id="whatHappenedHint">
+          <span className="usa-hint">
             When first using the product, how long did it take before problems
             started, and did issues go away after stopping the product?
-            <br />
-            <br />
-            If the person harmed went to the hospital, what was the diagnosis
-            and how was it treated?
-          </div>
+          </span>
         </Label>
         {validated && !isDescriptionValid() && (
           <ErrorMessage id="description-error">
@@ -407,6 +441,54 @@ export default function WhatHappenedB() {
         </DateInputGroup>
       </FormGroup>
       <FormGroup>
+        <Label htmlFor="whatHappenedOutcome">
+          Did any of the following happen? (optional)
+          <br />
+          <span className="usa-hint">Select all that apply</span>
+        </Label>
+        <Fieldset
+          legend="Did any of the following happen?"
+          legendStyle="srOnly"
+          className="margin-bottom-3"
+        >
+          <Checkbox
+            id="hospitalizationWhatHappenedOutcome"
+            value="Hospitalization"
+            name="whatHappenedOutcome"
+            label="Hospitalization"
+            checked={userData[WHAT_HAPPENED_OUTCOME]?.includes(
+              "Hospitalization",
+            )}
+            onChange={handleWhatHappenedOutcomeChange}
+            tile
+          />
+          <Checkbox
+            id="deathWhatHappenedOutcome"
+            value="Death"
+            name="whatHappenedOutcome"
+            label="Death"
+            checked={userData[WHAT_HAPPENED_OUTCOME]?.includes("Death")}
+            onChange={handleWhatHappenedOutcomeChange}
+            tile
+          />
+        </Fieldset>
+      </FormGroup>
+      {userData[WHAT_HAPPENED_OUTCOME]?.includes("Death") && (
+        <FormGroup className="margin-bottom-3">
+          <Label htmlFor="whatHappenedDiagnosis">
+            What was the diagnosis and how was it treated? (optional)
+          </Label>
+          <CharacterCount
+            id="whatHappenedDiagnosis"
+            name="whatHappenedDiagnosis"
+            isTextArea={true}
+            value={userData[WHAT_HAPPENED_DIAGNOSIS]}
+            onChange={handleWhatHappenedDiagnosisChange}
+            maxLength={4000}
+          />
+        </FormGroup>
+      )}
+      <FormGroup>
         <Label htmlFor="additionalFileInput">
           Upload any additional information (optional)
           <div id="additional-files-hint" className="usa-hint">
@@ -421,12 +503,39 @@ export default function WhatHappenedB() {
           multiple
         />
       </FormGroup>
-      <NavigateNext
-        userData={userData}
-        screenName={screenName}
-        validate={validate}
-      />
-      <NavigateBackB userData={userData} screenName={screenName} />
-    </>
+      <FormGroup>
+        <Label htmlFor="previouslyReportedToggle">
+          Did you already report this problem to the company that makes this
+          product? (optional)
+        </Label>
+        <Fieldset
+          legend="Did you already report this problem to the company that makes this product?"
+          legendStyle="srOnly"
+        >
+          <Radio
+            id="previouslyReportedToggleYes"
+            name="previouslyReportedToggle"
+            value="truePreviouslyReported"
+            label="Yes"
+            checked={
+              userData[PREVIOUSLY_REPORTED_TO_MANUFACTURER] ===
+              "truePreviouslyReported"
+            }
+            onChange={handlePreviouslyReportedChange}
+          />
+          <Radio
+            id="previouslyReportedToggleNo"
+            name="previouslyReportedToggle"
+            value="falsePreviouslyReported"
+            label="No"
+            checked={
+              userData[PREVIOUSLY_REPORTED_TO_MANUFACTURER] ===
+              "falsePreviouslyReported"
+            }
+            onChange={handlePreviouslyReportedChange}
+          />
+        </Fieldset>
+      </FormGroup>
+    </ScreenWithNavigation>
   );
 }

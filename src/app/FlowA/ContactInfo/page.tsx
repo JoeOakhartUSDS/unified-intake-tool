@@ -14,10 +14,9 @@ import {
 } from "@/_contexts/UserDataProvider";
 import { useState } from "react";
 import { z } from "zod";
-import NavigateBack from "@/_components/NavigateBack";
-import NavigateNext from "@/_components/NavigateNext";
 import NavigateSkip from "@/_components/NavigateSkip";
 import { ContactInfoMetadata } from "./metadata";
+import ScreenWithNavigation from "@/_components/ScreenWithNavigation";
 
 export default function ContactInfo() {
   const screenName = ContactInfoMetadata.name;
@@ -57,8 +56,11 @@ export default function ContactInfo() {
   };
 
   return (
-    <>
-      <NavigateBack userData={userData} screenName={screenName} />
+    <ScreenWithNavigation
+      userData={userData}
+      screenName={screenName}
+      validate={validate}
+    >
       <div>
         Can we contact you? (optional)
         <br />
@@ -121,11 +123,6 @@ export default function ContactInfo() {
           onChange={handleEmailChange}
         />
       </FormGroup>
-      <NavigateNext
-        userData={userData}
-        screenName={screenName}
-        validate={validate}
-      />
-    </>
+    </ScreenWithNavigation>
   );
 }

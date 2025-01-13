@@ -1,15 +1,20 @@
 "use client";
 
 import { useUserDataContext } from "@/_contexts/UserDataProvider";
-import NavigateNext from "@/_components/NavigateNext";
 import { LandingMetadata } from "./metadata";
+import ScreenWithNavigation from "./_components/ScreenWithNavigation";
 
 export default function Landing() {
   const screenName = LandingMetadata.name;
   const { userData } = useUserDataContext();
 
   return (
-    <>
+    <ScreenWithNavigation
+      userData={userData}
+      screenName={screenName}
+      buttonText="Get Started"
+      hideBack={true}
+    >
       <h1 className="font-ui-xl text-bold">Report a problem</h1>
       <div className="margin-bottom-2">
         We review every submission. We use this information to monitor the
@@ -26,11 +31,6 @@ export default function Landing() {
         </a>
       </div>
       <div>We will reach out if we have any questions.</div>
-      <NavigateNext
-        userData={userData}
-        screenName={screenName}
-        buttonText="Get Started"
-      />
-    </>
+    </ScreenWithNavigation>
   );
 }

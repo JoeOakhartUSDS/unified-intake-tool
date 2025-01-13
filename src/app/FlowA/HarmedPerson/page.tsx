@@ -20,10 +20,9 @@ import {
 } from "@/_contexts/UserDataProvider";
 import { useState } from "react";
 import { z } from "zod";
-import NavigateBack from "@/_components/NavigateBack";
-import NavigateNext from "@/_components/NavigateNext";
 import NavigateSkip from "@/_components/NavigateSkip";
 import { HarmedPersonMetadata } from "./metadata";
+import ScreenWithNavigation from "@/_components/ScreenWithNavigation";
 
 export default function HarmedPerson() {
   const screenName = HarmedPersonMetadata.name;
@@ -91,8 +90,11 @@ export default function HarmedPerson() {
   };
 
   return (
-    <>
-      <NavigateBack userData={userData} screenName={screenName} />
+    <ScreenWithNavigation
+      userData={userData}
+      screenName={screenName}
+      validate={validate}
+    >
       <div>
         Tell us about who was harmed (optional)
         <br />
@@ -218,12 +220,6 @@ export default function HarmedPerson() {
           maxLength={8000}
         />
       </FormGroup>
-
-      <NavigateNext
-        userData={userData}
-        screenName={screenName}
-        validate={validate}
-      />
-    </>
+    </ScreenWithNavigation>
   );
 }

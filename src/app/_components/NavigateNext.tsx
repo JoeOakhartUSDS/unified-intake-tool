@@ -24,7 +24,7 @@ const NavigateNext = ({
         variant="unstyled"
         allowSpacebarActivation
       >
-        {buttonText ? buttonText : "Save and continue"}
+        {buttonText ? buttonText : "Continue"}
       </Link>
     </NextLink>
   </div>

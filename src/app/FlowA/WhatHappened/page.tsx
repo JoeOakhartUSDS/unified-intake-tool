@@ -11,9 +11,8 @@ import {
   useUserDataContext,
 } from "@/_contexts/UserDataProvider";
 import { useState } from "react";
-import NavigateBack from "@/_components/NavigateBack";
-import NavigateNext from "@/_components/NavigateNext";
 import { WhatHappenedMetadata } from "./metadata";
+import ScreenWithNavigation from "@/_components/ScreenWithNavigation";
 
 export default function WhatHappened() {
   const screenName = WhatHappenedMetadata.name;
@@ -38,8 +37,11 @@ export default function WhatHappened() {
   };
 
   return (
-    <>
-      <NavigateBack userData={userData} screenName={screenName} />
+    <ScreenWithNavigation
+      userData={userData}
+      screenName={screenName}
+      validate={validate}
+    >
       <FormGroup className="margin-bottom-3" error={validated && !isValid()}>
         <Label htmlFor="whatHappened">
           Describe what happened in detail
@@ -78,11 +80,6 @@ export default function WhatHappened() {
           required
         />
       </FormGroup>
-      <NavigateNext
-        userData={userData}
-        screenName={screenName}
-        validate={validate}
-      />
-    </>
+    </ScreenWithNavigation>
   );
 }

@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "@trussworks/react-uswds/lib/uswds.css";
 import "@trussworks/react-uswds/lib/index.css";
-import { Form, GovBanner } from "@trussworks/react-uswds";
+import { GovBanner } from "@trussworks/react-uswds";
 import FakeHeader from "@/components/FakeHeader";
 import FakeFooter from "@/components/FakeFooter";
 import UserDataProvider from "@/_contexts/UserDataProvider";
@@ -44,9 +44,7 @@ export default function RootLayout({
         </a>
         <GovBanner />
         <FakeHeader />
-        <Form large={true} className="padding-9 padding-top-0">
-          <UserDataProvider>{children}</UserDataProvider>
-        </Form>
+        <UserDataProvider>{children}</UserDataProvider>
         <FakeFooter />
       </body>
     </html>

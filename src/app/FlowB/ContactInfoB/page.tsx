@@ -9,6 +9,8 @@ import {
   StepIndicatorStep,
   Radio,
   Fieldset,
+  Checkbox,
+  TextInputMask,
 } from "@trussworks/react-uswds";
 import {
   CONTACT_PERMISSION,
@@ -16,18 +18,19 @@ import {
   CONTACT_LAST_NAME,
   CONTACT_EMAIL,
   useUserDataContext,
+  CONTACT_PHONE,
 } from "@/_contexts/UserDataProvider";
 import { useState } from "react";
 import { z } from "zod";
-import NavigateBackB from "@/_components/NavigateBackB";
-import NavigateNext from "@/_components/NavigateNext";
 import NavigateSkip from "@/_components/NavigateSkip";
 import { ContactInfoBMetadata } from "./metadata";
+import ScreenWithNavigation from "@/_components/ScreenWithNavigation";
 
 export default function ContactInfo() {
   const screenName = ContactInfoBMetadata.name;
   const { userData, updateUserData } = useUserDataContext();
   const [validated, setValidated] = useState(false);
+  const [emailNotAvailable, setEmailNotAvailable] = useState(false);
 
   const handleFirstNameChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -43,14 +46,24 @@ export default function ContactInfo() {
     updateUserData(CONTACT_EMAIL, event.target.value);
   };
 
+  const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    updateUserData(CONTACT_PHONE, event.target.value);
+  };
+
   const handleContactPermissionChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     updateUserData(CONTACT_PERMISSION, event.target.value);
   };
 
+  const handleEmailNotAvailableChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setEmailNotAvailable(event.target.checked);
+  };
+
   const validate = (event: React.ChangeEvent) => {
-    if (!isValid()) {
+    if (!isEmailValid() || !isPhoneValid()) {
       event.preventDefault();
       setValidated(true);
       return false;
@@ -60,15 +73,29 @@ export default function ContactInfo() {
 
   const emailSchema = z.string().email();
 
-  const isValid = () => {
+  const isEmailValid = () => {
     return (
       !userData[CONTACT_EMAIL] ||
       emailSchema.safeParse(userData[CONTACT_EMAIL]).success
     );
   };
 
+  const phoneSchema = z.string().regex(/^\d{3}-\d{3}-\d{4}$/);
+
+  const isPhoneValid = () => {
+    return (
+      !userData[CONTACT_PHONE] ||
+      phoneSchema.safeParse(userData[CONTACT_PHONE]).success
+    );
+  };
+
   return (
-    <>
+    <ScreenWithNavigation
+      userData={userData}
+      screenName={screenName}
+      validate={validate}
+      isBottomBack={true}
+    >
       <StepIndicator
         headingLevel="h1"
         ofText="of"
@@ -152,13 +179,13 @@ export default function ContactInfo() {
           onChange={handleLastNameChange}
         />
       </FormGroup>
-      <FormGroup error={validated && !isValid()}>
+      <FormGroup error={validated && !isEmailValid()}>
         <Label htmlFor="email">
           Email address (optional)
           <br />
           <span className="usa-hint">For example, Name@domain.com</span>
         </Label>
-        {validated && !isValid() && (
+        {validated && !isEmailValid() && (
           <ErrorMessage id="email-error">
             Please provide a valid email address.
           </ErrorMessage>
@@ -171,12 +198,36 @@ export default function ContactInfo() {
           onChange={handleEmailChange}
         />
       </FormGroup>
-      <NavigateNext
-        userData={userData}
-        screenName={screenName}
-        validate={validate}
+      <Checkbox
+        id="emailNotAvailable"
+        name="emailNotAvailable"
+        label="I don't have an email address"
+        checked={emailNotAvailable}
+        onChange={handleEmailNotAvailableChange}
       />
-      <NavigateBackB userData={userData} screenName={screenName} />
-    </>
+      {emailNotAvailable && (
+        <FormGroup error={validated && !isPhoneValid()}>
+          <Label htmlFor="email">
+            Phone number (optional)
+            <br />
+            <span className="usa-hint">For example, 555-555-5555</span>
+          </Label>
+          {validated && !isPhoneValid() && (
+            <ErrorMessage id="email-error">
+              Please provide a valid phone number.
+            </ErrorMessage>
+          )}
+          <TextInputMask
+            id="phone"
+            name="phone"
+            type="tel"
+            value={userData[CONTACT_PHONE]}
+            onChange={handlePhoneChange}
+            mask="___-___-____"
+            pattern="\d{3}-\d{3}-\d{4}"
+          />
+        </FormGroup>
+      )}
+    </ScreenWithNavigation>
   );
 }

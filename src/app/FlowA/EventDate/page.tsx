@@ -14,10 +14,9 @@ import {
   useUserDataContext,
 } from "@/_contexts/UserDataProvider";
 import { useEffect, useState } from "react";
-import NavigateBack from "@/_components/NavigateBack";
-import NavigateNext from "@/_components/NavigateNext";
 import { EventDateMetadata } from "./metadata";
 import { z } from "zod";
+import ScreenWithNavigation from "@/_components/ScreenWithNavigation";
 
 export default function EventDate() {
   const screenName = EventDateMetadata.name;
@@ -42,7 +41,7 @@ export default function EventDate() {
         default:
       }
     }
-  });
+  }, [userData]);
 
   const handleMonthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMonth(event.target.value);
@@ -122,8 +121,11 @@ export default function EventDate() {
   };
 
   return (
-    <>
-      <NavigateBack userData={userData} screenName={screenName} />
+    <ScreenWithNavigation
+      userData={userData}
+      screenName={screenName}
+      validate={validate}
+    >
       <FormGroup error={validated && !isValid()}>
         <Label>
           When did this happen?
@@ -198,11 +200,6 @@ export default function EventDate() {
           />
         </DateInputGroup>
       </FormGroup>
-      <NavigateNext
-        userData={userData}
-        screenName={screenName}
-        validate={validate}
-      />
-    </>
+    </ScreenWithNavigation>
   );
 }
