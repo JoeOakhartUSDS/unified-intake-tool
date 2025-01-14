@@ -5,6 +5,7 @@ import NavigateNext from "./NavigateNext";
 import NavigateBackB from "./NavigateBackB";
 import { useRouter } from "next/navigation";
 import { nextScreen } from "@/_utils/Navigation";
+import { useEffect } from "react";
 
 interface ScreenWithNavigationProps {
   screenName: string;
@@ -28,6 +29,20 @@ export default function ScreenWithNavigation({
   children,
 }: ScreenWithNavigationProps) {
   const router = useRouter();
+
+  const handlePopState = (event: PopStateEvent) => {
+    event.preventDefault();
+    router.back();
+    return false;
+  };
+
+  useEffect(() => {
+    window.addEventListener("popstate", handlePopState);
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [router, handlePopState]);
+
   const handleSubmit = (event: React.ChangeEvent) => {
     event.preventDefault();
     if (!validate || validate(event)) {
