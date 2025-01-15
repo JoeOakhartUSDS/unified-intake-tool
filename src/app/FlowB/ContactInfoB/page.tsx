@@ -94,7 +94,6 @@ export default function ContactInfo() {
       userData={userData}
       screenName={screenName}
       validate={validate}
-      isBottomBack={true}
     >
       <StepIndicator
         headingLevel="h1"

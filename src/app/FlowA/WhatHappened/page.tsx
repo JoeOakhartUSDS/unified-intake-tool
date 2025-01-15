@@ -44,7 +44,7 @@ export default function WhatHappened() {
     >
       <FormGroup className="margin-bottom-3" error={validated && !isValid()}>
         <Label htmlFor="whatHappened">
-          Describe what happened in detail
+          Describe what happened, step by step, and the timing
           <abbr
             title="required"
             className="usa-hint usa-hint--required text-no-underline"
@@ -53,15 +53,8 @@ export default function WhatHappened() {
           </abbr>
           <br />
           <div className="usa-hint" id="whatHappenedHint">
-            What happened, step by step?
-            <br />
-            <br />
             When first using the product, how long did it take before problems
             started, and did issues go away after stopping the product?
-            <br />
-            <br />
-            If the person harmed went to the hospital, what was the diagnosis
-            and how was it treated?
           </div>
         </Label>
         {validated && !isValid() && (

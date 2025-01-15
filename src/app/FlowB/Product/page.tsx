@@ -67,7 +67,6 @@ export default function Product() {
       userData={userData}
       screenName={screenName}
       validate={validate}
-      isBottomBack={true}
     >
       <StepIndicator
         headingLevel="h1"

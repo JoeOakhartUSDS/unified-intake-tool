@@ -23,6 +23,8 @@ import { ProductMetadata } from "@/FlowB/Product/metadata";
 import { WhatHappenedBMetadata } from "@/FlowB/WhatHappenedB/metadata";
 import { HarmedPersonBMetadata } from "@/FlowB/HarmedPersonB/metadata";
 import { ContactInfoBMetadata } from "@/FlowB/ContactInfoB/metadata";
+import { WhatOutcomeMetadata } from "@/FlowA/WhatOutcome/metadata";
+import { ReportedToManufacturerMetadata } from "@/FlowA/ReportedToManufacturer/metadata";
 
 export const screenOrder = () => {
   return Cookies.get("CurrentFlow") === "B" ? screenOrderB : screenOrderA;
@@ -39,9 +41,11 @@ export const screenOrderA: Array<ScreenMetadata> = [
   ProductNameMetadata,
   WhatHappenedMetadata,
   EventDateMetadata,
+  WhatOutcomeMetadata,
   HarmedPersonMetadata,
   ContactInfoMetadata,
   AdditionalFilesMetadata,
+  ReportedToManufacturerMetadata,
   ReviewScreenMetadata,
   ConfirmationScreenMetadata,
 ];

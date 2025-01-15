@@ -243,7 +243,6 @@ export default function WhatHappenedB() {
       userData={userData}
       screenName={screenName}
       validate={validate}
-      isBottomBack={true}
     >
       <StepIndicator
         headingLevel="h1"

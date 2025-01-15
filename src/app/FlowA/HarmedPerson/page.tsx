@@ -99,8 +99,8 @@ export default function HarmedPerson() {
         Tell us about who was harmed (optional)
         <br />
         <span className="usa-hint">
-          We use this information to track product problems and conduct
-          investigations.
+          This information is helpful for tracking product problems and
+          conducting investigations.
         </span>
       </div>
       <NavigateSkip
@@ -208,7 +208,8 @@ export default function HarmedPerson() {
           Provide their medical details (optional)
           <br />
           <span className="usa-hint">
-            List any prescriptions taken at the same time or allergies
+            List any products taken at the same time including over-the-counter
+            medications, supplements, and any allergies.
           </span>
         </Label>
         <CharacterCount

@@ -22,11 +22,8 @@ export default function ProductPhotos() {
         <Label htmlFor="productPhotosFileInput">
           Upload product photos (optional)
           <div className="usa-hint margin-bottom-2" id="product-photos-hint">
-            Include a photo of anywhere there is text on the package, product,
-            and instructions.
-            <br />
-            <br />
-            Include photos of anything wrong with the product.
+            Include a photo of the product and any text on the package,
+            including the barcode, lot number, and expiration dates.
           </div>
         </Label>
         <FileInput

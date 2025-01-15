@@ -5,9 +5,12 @@ import {
   PRODUCT_NAME,
   NDC_NUMBER,
   WHAT_HAPPENED,
+  WHAT_HAPPENED_DIAGNOSIS,
+  WHAT_HAPPENED_OUTCOME,
   EVENT_DATE,
   ADDITIONAL_FILES,
   PRODUCT_TYPE,
+  PREVIOUSLY_REPORTED_TO_MANUFACTURER,
   useUserDataContext,
 } from "@/_contexts/UserDataProvider";
 import { WhatHappenedBMetadata } from "./metadata";
@@ -36,8 +39,27 @@ export default function WhatHappenedBReview() {
       <br />
       Date: {userData[EVENT_DATE]}
       <br />
-      Date: {userData[ADDITIONAL_FILES] ? userData[ADDITIONAL_FILES] : "None"}
+      Did any of the following happen?{" "}
+      {userData[WHAT_HAPPENED_OUTCOME]?.length > 0
+        ? userData[WHAT_HAPPENED_OUTCOME]
+        : "None"}
       <br />
+      {userData[WHAT_HAPPENED_DIAGNOSIS] && (
+        <>
+          Diagnosis and treatment: {userData[WHAT_HAPPENED_DIAGNOSIS]}
+          <br />
+        </>
+      )}
+      Additional information:{" "}
+      {userData[ADDITIONAL_FILES] ? userData[ADDITIONAL_FILES] : "None"}
+      <br />
+      {userData[PREVIOUSLY_REPORTED_TO_MANUFACTURER] !== "" && (
+        <>
+          Reported to manufacturer:{" "}
+          {userData[PREVIOUSLY_REPORTED_TO_MANUFACTURER]}
+          <br />
+        </>
+      )}
     </ReviewSection>
   );
 }
