@@ -472,7 +472,8 @@ export default function WhatHappenedB() {
           />
         </Fieldset>
       </FormGroup>
-      {userData[WHAT_HAPPENED_OUTCOME]?.includes("Death") && (
+      {(userData[WHAT_HAPPENED_OUTCOME]?.includes("Hospitalization") ||
+        userData[WHAT_HAPPENED_OUTCOME]?.includes("Death")) && (
         <FormGroup className="margin-bottom-3">
           <Label htmlFor="whatHappenedDiagnosis">
             What was the diagnosis and how was it treated? (optional)

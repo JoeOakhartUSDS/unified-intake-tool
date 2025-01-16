@@ -13,8 +13,6 @@ import { ProductTypeMetadata } from "@/FlowA/ProductType/metadata";
 import { ScanBarcodeMetadata } from "@/FlowA/ScanBarcode/metadata";
 import { SubmissionTypeMetadata } from "@/FlowA/SubmissionType/metadata";
 import { WhatHappenedMetadata } from "@/FlowA/WhatHappened/metadata";
-import { FlowAMetadata } from "@/FlowA/metadata";
-import { FlowBMetadata } from "@/FlowB/metadata";
 import { LandingMetadata } from "@/metadata";
 import { ReviewScreenMetadata } from "@/ReviewScreen/metadata";
 import { ConfirmationScreenMetadata } from "@/ConfirmationScreen/metadata";
@@ -32,7 +30,6 @@ export const screenOrder = () => {
 
 export const screenOrderA: Array<ScreenMetadata> = [
   LandingMetadata,
-  FlowAMetadata,
   ProductTypeMetadata,
   SubmissionTypeMetadata,
   ScanBarcodeMetadata,
@@ -52,7 +49,6 @@ export const screenOrderA: Array<ScreenMetadata> = [
 
 export const screenOrderB: Array<ScreenMetadata> = [
   LandingMetadata,
-  FlowBMetadata,
   ProductMetadata,
   WhatHappenedBMetadata,
   HarmedPersonBMetadata,
