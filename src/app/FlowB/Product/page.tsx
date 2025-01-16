@@ -18,6 +18,7 @@ import {
 import { useState } from "react";
 import { ProductMetadata } from "./metadata";
 import ScreenWithNavigation from "@/_components/ScreenWithNavigation";
+import Cookies from "js-cookie";
 
 export default function Product() {
   const screenName = ProductMetadata.name;
@@ -61,6 +62,8 @@ export default function Product() {
   const isValidReportType = () => {
     return userData[SUBMISSION_TYPE] && userData[SUBMISSION_TYPE].length > 0;
   };
+
+  Cookies.set("CurrentFlow", "B");
 
   return (
     <ScreenWithNavigation

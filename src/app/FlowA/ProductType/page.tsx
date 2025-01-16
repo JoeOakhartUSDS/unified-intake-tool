@@ -11,6 +11,7 @@ import { PRODUCT_TYPE, useUserDataContext } from "@/_contexts/UserDataProvider";
 import { useState } from "react";
 import { ProductTypeMetadata } from "./metadata";
 import ScreenWithNavigation from "@/_components/ScreenWithNavigation";
+import Cookies from "js-cookie";
 
 export default function ProductType() {
   const screenName = ProductTypeMetadata.name;
@@ -33,6 +34,8 @@ export default function ProductType() {
   const isValid = () => {
     return userData[PRODUCT_TYPE] && userData[PRODUCT_TYPE].length > 0;
   };
+
+  Cookies.set("CurrentFlow", "A");
 
   return (
     <ScreenWithNavigation
