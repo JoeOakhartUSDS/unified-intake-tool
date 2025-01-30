@@ -12,6 +12,7 @@ import { useState } from "react";
 import { ProductTypeMetadata } from "./metadata";
 import ScreenWithNavigation from "@/_components/ScreenWithNavigation";
 import Cookies from "js-cookie";
+import RequiredAsterisk from "@/_components/RequiredAsterisk";
 
 export default function ProductType() {
   const screenName = ProductTypeMetadata.name;
@@ -46,12 +47,7 @@ export default function ProductType() {
       <FormGroup error={validated && !isValid()}>
         <Label htmlFor="ProductType">
           What was the product?
-          <abbr
-            title="required"
-            className="usa-hint usa-hint--required text-no-underline"
-          >
-            *
-          </abbr>
+          <RequiredAsterisk />
         </Label>
         {validated && !isValid() && (
           <ErrorMessage id="product-type-error">
@@ -63,6 +59,8 @@ export default function ProductType() {
           legendStyle="srOnly"
           className="margin-bottom-3"
           validationStatus={validated && !isValid() ? "error" : ""}
+          requiredMarker
+          aria-required="true"
         >
           <Radio
             id="product-type-cosmetic"

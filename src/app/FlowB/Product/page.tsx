@@ -19,6 +19,7 @@ import { useState } from "react";
 import { ProductMetadata } from "./metadata";
 import ScreenWithNavigation from "@/_components/ScreenWithNavigation";
 import Cookies from "js-cookie";
+import RequiredAsterisk from "@/_components/RequiredAsterisk";
 
 export default function Product() {
   const screenName = ProductMetadata.name;
@@ -86,12 +87,7 @@ export default function Product() {
       <FormGroup error={validated && !isValidType()}>
         <Label htmlFor="ProductType">
           What was the product?
-          <abbr
-            title="required"
-            className="usa-hint usa-hint--required text-no-underline"
-          >
-            *
-          </abbr>
+          <RequiredAsterisk />
         </Label>
         {validated && !isValidType() && (
           <ErrorMessage id="product-type-error">
@@ -103,6 +99,8 @@ export default function Product() {
           legendStyle="srOnly"
           className="margin-bottom-3"
           validationStatus={validated && !isValidType() ? "error" : ""}
+          requiredMarker
+          aria-required="true"
         >
           <Radio
             id="product-type-cosmetic"
@@ -181,12 +179,7 @@ export default function Product() {
       <FormGroup error={validated && !isValidReportType()}>
         <Label htmlFor="SubmissionType">
           What happened?
-          <abbr
-            title="required"
-            className="usa-hint usa-hint--required text-no-underline"
-          >
-            *
-          </abbr>
+          <RequiredAsterisk />
           <br />
           <span className="usa-hint">Select all that apply</span>
         </Label>
@@ -199,6 +192,8 @@ export default function Product() {
           legend="Tell us what happened"
           legendStyle="srOnly"
           className="margin-bottom-3"
+          requiredMarker
+          aria-required="true"
         >
           <Checkbox
             id="someoneWasHarmedSubmissionType"
@@ -237,7 +232,7 @@ export default function Product() {
             id="illegalActivityOrFraudSubmissionType"
             value="illegalActivityOrFraudSubmissionType"
             name="SubmissionType"
-            label="Illegal activity or fraud"
+            label="Illegal activity, fraud, or misconduct"
             checked={userData[SUBMISSION_TYPE]?.includes(
               "illegalActivityOrFraudSubmissionType",
             )}

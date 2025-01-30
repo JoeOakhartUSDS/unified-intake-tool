@@ -44,7 +44,9 @@ export default function RootLayout({
         </a>
         <GovBanner />
         <FakeHeader />
-        <UserDataProvider>{children}</UserDataProvider>
+        <UserDataProvider>
+          <main id="main-content">{children}</main>
+        </UserDataProvider>
         <FakeFooter />
       </body>
     </html>

@@ -13,6 +13,7 @@ import {
 import { useState } from "react";
 import { WhatHappenedMetadata } from "./metadata";
 import ScreenWithNavigation from "@/_components/ScreenWithNavigation";
+import RequiredAsterisk from "@/_components/RequiredAsterisk";
 
 export default function WhatHappened() {
   const screenName = WhatHappenedMetadata.name;
@@ -45,12 +46,7 @@ export default function WhatHappened() {
       <FormGroup className="margin-bottom-3" error={validated && !isValid()}>
         <Label htmlFor="whatHappened">
           Describe what happened, step by step, and the timing
-          <abbr
-            title="required"
-            className="usa-hint usa-hint--required text-no-underline"
-          >
-            *
-          </abbr>
+          <RequiredAsterisk />
           <br />
           <div className="usa-hint" id="whatHappenedHint">
             When first using the product, how long did it take before problems
@@ -71,6 +67,7 @@ export default function WhatHappened() {
           onChange={handleChange}
           maxLength={4000}
           required
+          aria-required="true"
         />
       </FormGroup>
     </ScreenWithNavigation>

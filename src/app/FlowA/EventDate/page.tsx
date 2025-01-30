@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 import { EventDateMetadata } from "./metadata";
 import { z } from "zod";
 import ScreenWithNavigation from "@/_components/ScreenWithNavigation";
+import RequiredAsterisk from "@/_components/RequiredAsterisk";
 
 export default function EventDate() {
   const screenName = EventDateMetadata.name;
@@ -129,12 +130,7 @@ export default function EventDate() {
       <FormGroup error={validated && !isValid()}>
         <Label>
           When did this happen?
-          <abbr
-            title="required"
-            className="usa-hint usa-hint--required text-no-underline"
-          >
-            *
-          </abbr>
+          <RequiredAsterisk />
           <br />
           <span className="usa-hint">
             For example: October 1, 2024
@@ -197,6 +193,7 @@ export default function EventDate() {
             onChange={handleYearChange}
             onBlur={autoCompleteYear}
             required
+            aria-required="true"
           />
         </DateInputGroup>
       </FormGroup>

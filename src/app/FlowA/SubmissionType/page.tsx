@@ -14,6 +14,7 @@ import {
 import { useState } from "react";
 import { SubmissionTypeMetadata } from "./metadata";
 import ScreenWithNavigation from "@/_components/ScreenWithNavigation";
+import RequiredAsterisk from "@/_components/RequiredAsterisk";
 
 export default function SubmissionType() {
   const screenName = SubmissionTypeMetadata.name;
@@ -57,12 +58,7 @@ export default function SubmissionType() {
       <FormGroup error={validated && !isValid()}>
         <Label htmlFor="SubmissionType">
           Tell us what happened
-          <abbr
-            title="required"
-            className="usa-hint usa-hint--required text-no-underline"
-          >
-            *
-          </abbr>
+          <RequiredAsterisk />
           <br />
           <span className="usa-hint">Select all that apply</span>
         </Label>
@@ -75,6 +71,8 @@ export default function SubmissionType() {
           legend="Tell us what happened"
           legendStyle="srOnly"
           className="margin-bottom-3"
+          requiredMarker
+          aria-required="true"
         >
           <Checkbox
             id="someoneWasHarmedSubmissionType"
@@ -113,7 +111,7 @@ export default function SubmissionType() {
             id="illegalActivityOrFraudSubmissionType"
             value="illegalActivityOrFraudSubmissionType"
             name="SubmissionType"
-            label="Illegal activity or fraud"
+            label="Illegal activity, fraud, or misconduct"
             checked={userData[SUBMISSION_TYPE]?.includes(
               "illegalActivityOrFraudSubmissionType",
             )}

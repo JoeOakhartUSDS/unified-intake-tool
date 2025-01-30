@@ -14,6 +14,7 @@ import {
 import { useState } from "react";
 import { ProductNameMetadata } from "./metadata";
 import ScreenWithNavigation from "@/_components/ScreenWithNavigation";
+import RequiredAsterisk from "@/_components/RequiredAsterisk";
 
 export default function ProductName() {
   const screenName = ProductNameMetadata.name;
@@ -58,14 +59,7 @@ export default function ProductName() {
       <FormGroup error={validated && !isValid()}>
         <Label>
           Product name
-          {isRequired && (
-            <abbr
-              title="required"
-              className="usa-hint usa-hint--required text-no-underline"
-            >
-              *
-            </abbr>
-          )}
+          {isRequired && <RequiredAsterisk />}
           <br />
           <span className="usa-hint">
             Include as much detail as possible, including the brand.
@@ -82,7 +76,8 @@ export default function ProductName() {
           type="text"
           value={userData[PRODUCT_NAME]}
           onChange={handleChange}
-          required
+          required={isRequired}
+          aria-required={isRequired}
         />
       </FormGroup>
     </ScreenWithNavigation>

@@ -27,6 +27,7 @@ export const CONTACT_LAST_NAME = "contactLastName";
 export const CONTACT_EMAIL = "contactEmail";
 export const CONTACT_PHONE = "contactPhone";
 export const ADDITIONAL_FILES = "additionalFiles";
+export const UPC = "UPC";
 
 export interface UserData {
   [key: string]: string | Array<string>;
@@ -67,6 +68,7 @@ export default function UserDataProvider({
     CONTACT_EMAIL: "",
     CONTACT_PHONE: "",
     ADDITIONAL_FILES: "",
+    UPC: "",
   });
 
   const updateUserData = (name: string, value: string | Array<string>) => {

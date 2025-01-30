@@ -24,6 +24,7 @@ import { useState } from "react";
 import { z } from "zod";
 import { ContactInfoBMetadata } from "./metadata";
 import ScreenWithNavigation from "@/_components/ScreenWithNavigation";
+import RequiredAsterisk from "@/_components/RequiredAsterisk";
 
 export default function ContactInfo() {
   const screenName = ContactInfoBMetadata.name;
@@ -204,12 +205,7 @@ export default function ContactInfo() {
           </FormGroup>
           <div>
             Provide your email or phone number
-            <abbr
-              title="required"
-              className="usa-hint usa-hint--required text-no-underline"
-            >
-              *
-            </abbr>
+            <RequiredAsterisk />
           </div>
           <FormGroup error={validated && !isEmailValid()}>
             <Label htmlFor="email">

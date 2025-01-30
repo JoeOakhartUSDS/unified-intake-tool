@@ -10,7 +10,6 @@ import { NDCNumberMetadata } from "@/FlowA/NDCNumber/metadata";
 import { ProductNameMetadata } from "@/FlowA/ProductName/metadata";
 import { ProductPhotosMetadata } from "@/FlowA/ProductPhotos/metadata";
 import { ProductTypeMetadata } from "@/FlowA/ProductType/metadata";
-import { ScanBarcodeMetadata } from "@/FlowA/ScanBarcode/metadata";
 import { SubmissionTypeMetadata } from "@/FlowA/SubmissionType/metadata";
 import { WhatHappenedMetadata } from "@/FlowA/WhatHappened/metadata";
 import { LandingMetadata } from "@/metadata";
@@ -23,6 +22,7 @@ import { HarmedPersonBMetadata } from "@/FlowB/HarmedPersonB/metadata";
 import { ContactInfoBMetadata } from "@/FlowB/ContactInfoB/metadata";
 import { WhatOutcomeMetadata } from "@/FlowA/WhatOutcome/metadata";
 import { ReportedToManufacturerMetadata } from "@/FlowA/ReportedToManufacturer/metadata";
+import { BarcodeTextMetadata } from "@/FlowA/BarcodeText/metadata";
 
 export const screenOrder = () => {
   return Cookies.get("CurrentFlow") === "B" ? screenOrderB : screenOrderA;
@@ -32,17 +32,17 @@ export const screenOrderA: Array<ScreenMetadata> = [
   LandingMetadata,
   ProductTypeMetadata,
   SubmissionTypeMetadata,
-  ScanBarcodeMetadata,
-  NDCNumberMetadata,
   ProductPhotosMetadata,
   ProductNameMetadata,
+  BarcodeTextMetadata,
+  NDCNumberMetadata,
   WhatHappenedMetadata,
   EventDateMetadata,
   WhatOutcomeMetadata,
-  HarmedPersonMetadata,
-  ContactInfoMetadata,
   AdditionalFilesMetadata,
   ReportedToManufacturerMetadata,
+  HarmedPersonMetadata,
+  ContactInfoMetadata,
   ReviewScreenMetadata,
   ConfirmationScreenMetadata,
 ];
