@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  Checkbox,
   Fieldset,
   ErrorMessage,
   FormGroup,
@@ -9,12 +8,12 @@ import {
   Select,
   CharacterCount,
   Label,
+  Radio,
 } from "@trussworks/react-uswds";
 import {
   HARMED_AGE,
   HARMED_AGE_UNIT,
-  HARMED_GENDER,
-  HARMED_GENDER_SPECIFY,
+  HARMED_SEX,
   HARMED_MEDICAL,
   useUserDataContext,
 } from "@/_contexts/UserDataProvider";
@@ -37,35 +36,8 @@ export default function HarmedPerson() {
     updateUserData(HARMED_AGE_UNIT, event.target.value);
   };
 
-  const handleGenderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // Special case because NA disables other gender options
-    if (event.target.value == "Prefer not to say") {
-      if (userData[HARMED_GENDER]?.includes("Prefer not to say")) {
-        updateUserData(HARMED_GENDER, []);
-      } else {
-        updateUserData(HARMED_GENDER, ["Prefer not to say"]);
-      }
-      return;
-    }
-
-    if (typeof userData[HARMED_GENDER] === "object") {
-      const previous = userData[HARMED_GENDER];
-      const indexOfValue = previous.indexOf(event.target.value);
-      if (indexOfValue >= 0) {
-        previous.splice(indexOfValue, 1);
-        updateUserData(HARMED_GENDER, previous);
-      } else {
-        updateUserData(HARMED_GENDER, [...previous, event.target.value]);
-      }
-    } else {
-      updateUserData(HARMED_GENDER, [event.target.value]);
-    }
-  };
-
-  const handleGenderSpecifyChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    updateUserData(HARMED_GENDER_SPECIFY, event.target.value);
+  const handleSexChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    updateUserData(HARMED_SEX, event.target.value);
   };
 
   const handleMedicalChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -132,77 +104,37 @@ export default function HarmedPerson() {
         </Select>
       </FormGroup>
       <FormGroup>
-        <Label htmlFor="gender">
-          Gender (optional)
-          <br />
-          <span className="usa-hint">Select all that apply</span>
-        </Label>
-        <Fieldset
-          legend="Gender"
-          legendStyle="srOnly"
-          className="margin-bottom-3"
-        >
-          <Checkbox
-            id="femaleGender"
+        <Label htmlFor="sex">Sex (optional)</Label>
+        <Fieldset legend="Sex" legendStyle="srOnly" className="margin-bottom-3">
+          <Radio
+            id="femaleSex"
             value="Female"
-            name="gender"
+            name="sex"
             label="Female"
-            checked={userData[HARMED_GENDER]?.includes("Female")}
-            onChange={handleGenderChange}
-            disabled={userData[HARMED_GENDER]?.includes("Prefer not to say")}
+            checked={userData[HARMED_SEX] === "Female"}
+            onChange={handleSexChange}
             tile
           />
-          <Checkbox
-            id="maleGender"
+          <Radio
+            id="maleSex"
             value="Male"
-            name="gender"
+            name="sex"
             label="Male"
-            checked={userData[HARMED_GENDER]?.includes("Male")}
-            onChange={handleGenderChange}
-            disabled={userData[HARMED_GENDER]?.includes("Prefer not to say")}
+            checked={userData[HARMED_SEX] === "Male"}
+            onChange={handleSexChange}
             tile
           />
-          <Checkbox
-            id="transGender"
-            value="Transgender"
-            name="gender"
-            label="Transgender"
-            checked={userData[HARMED_GENDER]?.includes("Transgender")}
-            onChange={handleGenderChange}
-            disabled={userData[HARMED_GENDER]?.includes("Prefer not to say")}
-            tile
-          />
-          <Checkbox
-            id="anotherGender"
-            value="Another gender"
-            name="gender"
-            label="Another gender (specify)"
-            checked={userData[HARMED_GENDER]?.includes("Another gender")}
-            onChange={handleGenderChange}
-            disabled={userData[HARMED_GENDER]?.includes("Prefer not to say")}
-            tile
-          />
-          <Checkbox
-            id="naGender"
+          <Radio
+            id="naSex"
             value="Prefer not to say"
-            name="gender"
+            name="sex"
             label="Prefer not to say"
-            checked={userData[HARMED_GENDER]?.includes("Prefer not to say")}
-            onChange={handleGenderChange}
+            checked={userData[HARMED_SEX] === "Prefer not to say"}
+            onChange={handleSexChange}
             tile
           />
         </Fieldset>
       </FormGroup>
-      {userData[HARMED_GENDER]?.includes("Another gender") && (
-        <FormGroup>
-          <Label htmlFor="gender-specify">Specify gender</Label>
-          <TextInput
-            id="gender-specify"
-            name="gender-specify"
-            onChange={handleGenderSpecifyChange}
-          />
-        </FormGroup>
-      )}
       <FormGroup>
         <Label htmlFor="medical-text">
           Provide their medical details (optional)

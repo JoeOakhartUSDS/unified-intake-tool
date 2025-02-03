@@ -17,8 +17,7 @@ export const EVENT_DATE = "eventDate";
 export const EVENT_DATE_PRECISION = "eventDatePrecision";
 export const HARMED_AGE = "harmedAge";
 export const HARMED_AGE_UNIT = "harmedAgeUnit";
-export const HARMED_GENDER = "harmedGender";
-export const HARMED_GENDER_SPECIFY = "harmedGenderSpecify";
+export const HARMED_SEX = "harmedSex";
 export const HARMED_MEDICAL = "harmedMedical";
 export const CONTACT_PERMISSION = "contactPermission";
 export const CONTACT_PERMISSION_SHARE = "contactPermissionShare";
@@ -58,8 +57,7 @@ export default function UserDataProvider({
     EVENT_DATE: "",
     HARMED_AGE: "",
     HARMED_AGE_UNIT: "years",
-    HARMED_GENDER: [],
-    HARMED_GENDER_OTHER: "",
+    HARMED_SEX: "",
     HARMED_MEDICAL: "",
     CONTACT_PERMISSION: "",
     CONTACT_PERMISSION_SHARE: "",
